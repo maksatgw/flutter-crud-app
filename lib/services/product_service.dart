@@ -39,7 +39,7 @@ class ProductService {
         }
       } else {
         if (kDebugMode) {
-          print(e.message);
+          print(e.response?.data);
         }
       }
     }
@@ -53,7 +53,9 @@ class ProductService {
 
       return response.statusCode == HttpStatus.created;
     } on DioError catch (e) {
-      print(e.response?.data);
+      if (kDebugMode) {
+        print(e.response?.data);
+      }
     }
     return false;
   }
@@ -63,8 +65,10 @@ class ProductService {
     try {
       var response = await _dio.put('products/${id}', data: productModel);
       return response.statusCode == HttpStatus.noContent;
-    } catch (e) {
-      print("Hata");
+    } on DioError catch (e) {
+      if (kDebugMode) {
+        print(e.response?.data);
+      }
     }
     return false;
   }
@@ -74,8 +78,10 @@ class ProductService {
     try {
       var response = await _dio.delete('products/${id}');
       return response.statusCode == HttpStatus.noContent;
-    } catch (e) {
-      print("Hata");
+    } on DioError catch (e) {
+      if (kDebugMode) {
+        print(e.response?.data);
+      }
     }
     return false;
   }
