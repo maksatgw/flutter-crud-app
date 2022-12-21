@@ -17,8 +17,10 @@ class ProductModel {
     stock = json['stock'];
   }
 
+  //Put ederken servise id gondermem gerektigi icin toJson icinde aid var
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
     data['brand'] = this.brand;
     data['model'] = this.model;
     data['price'] = this.price;
@@ -27,7 +29,7 @@ class ProductModel {
   }
 
   //Backendimde post ederken id auto increment olduğu için toJson id olmayan gönderiyoruz.
-  Map<String, dynamic> toJson2() {
+  Map<String, dynamic> toJsonPost() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['brand'] = this.brand;
     data['model'] = this.model;

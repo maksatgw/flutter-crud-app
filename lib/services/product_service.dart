@@ -15,7 +15,7 @@ class ProductService {
             (Dio(BaseOptions(baseUrl: "http://www.sampleapi.somee.com/api/")));
 
   //[HTTPget]
-  // bu fonksiyon geriye bir ProductModel verecegi icin tipini ListModel olarak tanimliyoruz
+  // bu fonksiyon geriye bir ProductModel verecegi icin tipini aListModel olarak tanimliyoruz
   Future<List<ProductModel>?> getProducts() async {
     try {
       var response = await _dio.get('products');
@@ -48,8 +48,8 @@ class ProductService {
   //[HTTP Post]
   Future<bool> postProducts(ProductModel productModel) async {
     try {
-      var response =
-          await _dio.post('products', data: json.encode(productModel.toJson()));
+      var response = await _dio.post('products',
+          data: json.encode(productModel.toJsonPost()));
 
       return response.statusCode == HttpStatus.created;
     } on DioError catch (e) {
