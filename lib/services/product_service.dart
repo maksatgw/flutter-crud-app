@@ -12,7 +12,7 @@ class ProductService {
 
   ProductService()
       : _dio =
-            (Dio(BaseOptions(baseUrl: "http://www.sampleapi.somee.com/api/")));
+            (Dio(BaseOptions(baseUrl: "https://www.sampleapi.somee.com/api/")));
 
   //[HTTPget]
   // bu fonksiyon geriye bir ProductModel verecegi icin tipini aListModel olarak tanimliyoruz
