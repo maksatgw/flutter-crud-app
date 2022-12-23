@@ -63,6 +63,8 @@ class _ProductGetPageState extends State<ProductGetPage> {
   //
 
   Future<void> _putDataToService(ProductModel? productModel, int? id) async {
+    _changeLoading();
+
     var _result = await _services.putProducts(productModel, id);
     if (_result = true) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -75,9 +77,12 @@ class _ProductGetPageState extends State<ProductGetPage> {
     }
     _getProductsFromService();
     Navigator.of(context).pop();
+    _changeLoading();
   }
 
   Future<void> _delDataFromService(int? id) async {
+    _changeLoading();
+
     var _result = await _services.delProducts(id);
     if (_result = true) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -89,6 +94,8 @@ class _ProductGetPageState extends State<ProductGetPage> {
       ));
     }
     _getProductsFromService();
+    _changeLoading();
+
     Navigator.of(context).pop();
   }
 
@@ -211,61 +218,66 @@ class _ProductGetPageState extends State<ProductGetPage> {
                     final txt2 =
                         TextEditingController(text: _model?[index].model);
                     showModalBottomSheet(
+                      isScrollControlled: true,
                       context: context,
                       builder: (context) {
-                        return Container(
-                          height: 400,
-                          child: Center(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: SizedBox(
-                                    width: 500,
-                                    child: TextField(
-                                      controller: txt,
-                                      decoration: InputDecoration(
-                                        border: OutlineInputBorder(),
+                        return Padding(
+                          padding: EdgeInsets.only(
+                              bottom: MediaQuery.of(context).viewInsets.bottom),
+                          child: Container(
+                            height: 300,
+                            child: Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: SizedBox(
+                                      width: 500,
+                                      child: TextField(
+                                        controller: txt,
+                                        decoration: InputDecoration(
+                                          border: OutlineInputBorder(),
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: SizedBox(
-                                    width: 500,
-                                    child: TextField(
-                                      controller: txt2,
-                                      decoration: InputDecoration(
-                                        border: OutlineInputBorder(),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: SizedBox(
+                                      width: 500,
+                                      child: TextField(
+                                        controller: txt2,
+                                        decoration: InputDecoration(
+                                          border: OutlineInputBorder(),
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                                ElevatedButton(
-                                  child: const Text('Save'),
-                                  onPressed: () async {
-                                    // [1] Güncellenen veriyi _models nesnesine ata
-                                    _models = ProductModel(
-                                      id: _model?[index].id,
-                                      brand: txt.text,
-                                      model: txt2.text,
-                                    );
-                                    _putDataToService(
-                                        _models, _model?[index].id);
-                                  },
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: ElevatedButton(
-                                    child: Text("Delete"),
-                                    onPressed: () async =>
-                                        _delDataFromService(_model?[index].id),
+                                  ElevatedButton(
+                                    child: const Text('Save'),
+                                    onPressed: () async {
+                                      // [1] Güncellenen veriyi _models nesnesine ata
+                                      _models = ProductModel(
+                                        id: _model?[index].id,
+                                        brand: txt.text,
+                                        model: txt2.text,
+                                      );
+                                      _putDataToService(
+                                          _models, _model?[index].id);
+                                    },
                                   ),
-                                ),
-                              ],
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: ElevatedButton(
+                                      child: Text("Delete"),
+                                      onPressed: () async =>
+                                          _delDataFromService(
+                                              _model?[index].id),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         );
