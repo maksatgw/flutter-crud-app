@@ -109,7 +109,7 @@ class _ProductGetPageState extends State<ProductGetPage> {
             builder: (context) {
               return AlertDialog(
                 content: SizedBox(
-                  height: 320,
+                  height: 400,
                   child: Column(
                     children: [
                       Padding(
@@ -206,13 +206,13 @@ class _ProductGetPageState extends State<ProductGetPage> {
                   title: Text("${_model?[index].brand}"),
                   subtitle: Text("${_model?[index].model}"),
                   onTap: () {
+                    final txt =
+                        TextEditingController(text: _model?[index].brand);
+                    final txt2 =
+                        TextEditingController(text: _model?[index].model);
                     showModalBottomSheet(
                       context: context,
                       builder: (context) {
-                        TextEditingController txt =
-                            TextEditingController(text: _model?[index].brand);
-                        TextEditingController txt2 =
-                            TextEditingController(text: _model?[index].model);
                         return Container(
                           height: 400,
                           child: Center(
@@ -224,7 +224,7 @@ class _ProductGetPageState extends State<ProductGetPage> {
                                   padding: const EdgeInsets.all(8.0),
                                   child: SizedBox(
                                     width: 500,
-                                    child: TextFormField(
+                                    child: TextField(
                                       controller: txt,
                                       decoration: InputDecoration(
                                         border: OutlineInputBorder(),
