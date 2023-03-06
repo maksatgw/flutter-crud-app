@@ -1,1 +1,2 @@
-Dio ve Basit bir SQLDB kullanarak yapılmış .net core web api üzerinden haberleşen sade bir CRUD uygulaması
+Flutter ile somee'de tuttuğum, bir tabloluk bir SQL Veritabanına Ekle-Sil-Güncelle uygulaması yazdım. 
+Api ve veritabanı işlemlerinde Dio kullandım. 
